@@ -11,7 +11,7 @@ from sklearn.preprocessing import Normalizer
 
 class DataSet:
     # validation_size = % of the train_size that is saved for validation
-    def __init__(self, file=None, preproc=Normalizer(), random_state=0, 
+    def __init__(self, file, preproc=Normalizer(), random_state=0, 
             train_size=0.75, validation_size=0.1, test_size=0.25):
         self.file = file
         self.train_size=train_size
@@ -48,14 +48,14 @@ class DataSet:
             header=self.i)
         last_col = len(self.names) - 1
         X = data.iloc[:, 0:last_col]
-        y = data.iloc[:, last_col]
+        y = data.iloc[:, last_col].values
     
         X = X.apply(LabelEncoder().fit_transform)
         #X = LabelEncoder().fit_transform
         X = self.preproc.fit_transform(X)
         
         # Data split
-        self.X_train, self.X_test, self.y_train, self.test = \
+        self.X_train, self.X_test, self.y_train, self.y_test = \
             train_test_split(X, y, stratify=y, 
             train_size=self.train_size, test_size=(1.0 - self.train_size),
             random_state=self.random_state)
@@ -95,28 +95,6 @@ class DataSet:
         #     train_size=self.train_size, random_state=0)
         # pass
 
-    # def __unzip(self, file):
-        #     to_unzip = zipfile.ZipFile(file, 'r')
-        #     to_unzip.extractall()
-        #     to_unzip.close()
-        #     os.remove(file)
-        #     self.file = file.split('.')[0] + '.dat'
-        #     pass
 
-    # def download(self):
-    #     response = requests.get(self.url, allow_redirects=True)
-    #     open(self.url.split('/')[-1], 'wb').write(response.content)
-        
-    #     if self.url.endswith('.zip'):
-    #         self.__unzip(self.url.split('/')[-1])
-
-    
-    # def extract_data(self):
-    #     if self.url != None:
-    #         self.download()    
-    #     self.__read_meta()
-    #     self.data = pd.read_csv(self.file, names=self.names, \
-    #         header=self.i)
-    #     #__read_data() 
 
 

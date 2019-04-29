@@ -5,13 +5,16 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import matthews_corrcoef
 
 class Base:
-    def __init__(self, file, i):
+    def __init__(self, file, filename, i):
         self.file = file
         self.iter_n = i
+        self.filename = filename
         
-    def scores(self, prediction, y_test):
-        with open(self.file, 'at') as file:
-            line = f"\"{self.file} - MLP - Treino # {self.iter_n}\","
+    def scores(self, prediction, y_test, out, e, b, lr, ln, ls):
+        with open(out, 'at') as file:
+            line = f"\"{self.filename} - MLP\","
+            line = f"\"Split # {self.iter_n}\""
+            line = f"{e},{b},{lr},{ln},{ls},"
             line += f"{accuracy_score(y_test, prediction)},"
             line += f"{matthews_corrcoef(y_test, prediction)},"
             line += f"{f1_score(y_test, prediction,average='macro')},"
