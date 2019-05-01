@@ -1,2 +1,2 @@
-# MLP_Greed_Search
-Multilayer Perceptron greed search with sklearn python
+# MLP_Grid_Search
+Multilayer Perceptron grid search with sklearn python
