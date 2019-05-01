@@ -3,6 +3,7 @@ from sklearn.exceptions import DataConversionWarning
 from sklearn.preprocessing import Normalizer
 from sklearn.preprocessing import StandardScaler
 from os import listdir
+from os import mkdir
 from DataSet import DataSet
 from MLP import MLP
 
@@ -37,10 +38,11 @@ def grid_search(data, dataf, datan):
             for lr in learning_rate:
                 for ls in tuples:
                     mlp = MLP(dataf, datan, i, data, ep, b, lr, ls)
-                    mlp.scores(output_folder + output)
+                    mlp.scores(output)
                     progress += 0.004
-                    print('%s - Progress: %.2lf %%' % (data.file, progress))
-    print(f'{data.file} - Progress: 100.00%')
+                    print('\r%s - Progress: %.2lf %%' % (data.file, 
+                        progress), end='', flush=True)
+    print('\r%s - Progress: 100.00%' % (data.file), end='', flush=True)
 
 # main code
 generate_tuples()
@@ -48,7 +50,8 @@ for datafile in listdir(folder):
     if not datafile.endswith('.dat'):
         continue
     print(f"##### Opening {datafile} #####")
-    output = output_folder + datafile + '.csv'
+    output = output_folder + datafile.split('.')[0] + '.csv'
+    #mkdir(output_folder)
     with open(output, 'wt') as out_file: 
         out_file.writelines('\"Descrição\",\"Split #\",\"Epochs\",\"Batch\"" \
             + ",\"Learning Rate\",\"1st Layer\",\"2nd Layer\"," + \
