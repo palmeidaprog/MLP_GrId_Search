@@ -3,10 +3,18 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# project specific
+src/*.csv
+*.csv
+datasets_test/
+.~lock.*
+
+# visual studio code
+.vscode/
 
 # C extensions
-*.so
-src/*.csv
+
+data_
 *.csv
 
 # Distribution / packaging

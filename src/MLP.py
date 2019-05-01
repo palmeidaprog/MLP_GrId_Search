@@ -14,8 +14,9 @@ class MLP(Base):
         self.__run()
 
     def __run(self):
+        
         clf = MLPClassifier(batch_size=self.batch, 
-                hidden_layer_sizes=(self.layer_size, self.layers_n), 
+                hidden_layer_sizes=(self.layer_size,) * self.layers_n, 
                 learning_rate_init=self.learning_r, random_state=1)
         clf.fit(self.data.X_train, self.data.y_train)
         self.prediction = clf.predict(self.data.X_test)

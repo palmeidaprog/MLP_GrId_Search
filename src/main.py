@@ -25,7 +25,7 @@ def greed_search(data, dataf, datan):
     for ep in epochs:
         for b in batch:
             for lr in learning_rate:
-                for ln in layer_size:
+                for ln in layers_n:
                     for ls in layer_size:
                         mlp = MLP(dataf, datan, i, data, ep, b, lr, ln, ls)
                         mlp.scores(output)

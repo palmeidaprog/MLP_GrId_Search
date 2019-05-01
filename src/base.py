@@ -13,8 +13,8 @@ class Base:
     def scores(self, prediction, y_test, out, e, b, lr, ln, ls):
         with open(out, 'at') as file:
             line = f"\"{self.filename} - MLP\","
-            line = f"\"Split # {self.iter_n}\""
-            line = f"{e},{b},{lr},{ln},{ls},"
+            line += f"\"Split # {self.iter_n}\","
+            line += f"{e},{b},{lr},{ln},{ls},"
             line += f"{accuracy_score(y_test, prediction)},"
             line += f"{matthews_corrcoef(y_test, prediction)},"
             line += f"{f1_score(y_test, prediction,average='macro')},"
