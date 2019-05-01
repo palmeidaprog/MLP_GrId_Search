@@ -2,27 +2,24 @@
 import requests
 import os
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
-#from TreatedData import TreatedData
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import KFold
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import StandardScaler, Normalizer, LabelEncoder
+from joblib import dump, load
 
 class DataSet:
     # validation_size = % of the train_size that is saved for validation
     def __init__(self, file, preproc=Normalizer(), random_state=0, 
-            train_size=0.75, validation_size=0.1, test_size=0.25):
+            train_size=0.75, validation_size=0, test_size=0.25, 
+            save_folder='../saved_models/'):
         self.file = file
         self.train_size=train_size
         self.test_size = test_size
         self.validation_size = validation_size
         self.preproc = preproc
         self.random_state = random_state
+        self.save_folder = save_folder
         self.__split_data()
         
-
-    
     def __read_meta(self):
         self.i = 0
         self.names = []
@@ -60,42 +57,24 @@ class DataSet:
             train_test_split(X, y, stratify=y, 
             train_size=self.train_size, test_size=(1.0 - self.train_size),
             random_state=self.random_state)
+        self.__saveData(self.X_test, 'X_test')
+        self.__saveData(self.y_test, 'y_test')
         
-        self.X_train, self.X_validation, self.y_train, self.y_validation = \
-            train_test_split(self.X_train, self.y_train, 
-            stratify=self.y_train, train_size=(1.0 - self.validation_size),
-            test_size=self.validation_size, random_state=self.random_state)
+        # validation split
+        if self.validation_size > 0:
+            self.X_train, self.X_validation, self.y_train, self.y_validation \
+                = train_test_split(self.X_train, self.y_train, 
+                stratify=self.y_train, 
+                train_size=(1.0 - self.validation_size),
+                test_size=self.validation_size, 
+                random_state=self.random_state)
+            self.__saveData(self.X_validation, 'X_validation')
+            self.__saveData(self.y_validation, 'y_validation')
 
-        
-        # std_data = TreatedData(self.names, s.fit_transform(self.ft_train), 
-        #     s.transform(self.ft_test), self.tg_train, self.tg_test)
+        self.__saveData(self.X_train, 'X_train')
+        self.__saveData(self.y_train, 'y_train')
 
-
-
-        #data = data.apply(le.fit_transform)
-        # ft = self.data.iloc[:, 0:last_col].values
-        # ft.apply(le.fit_transform)
-        # tg = self.data.iloc[:, last_col].values
-        # with open('targets.txt', 'wt') as file:
-        #     print(tg, file=file)
-        
-        # kfold = KFold(10, True)
-        # for train, test in kfold.split(ft, y=tg):
-        #     continue
-            
-        # with open("train.txt", 'wt') as file:
-        #     print(ft[train], file=file)
-        # with open('test.txt', 'wt') as file:
-        #     print(ft[test], file=file)
-        # self.ft_train = ft[train]
-        # self.ft_test = ft[test]
-        # self.tg_train = tg[train]
-        # self.tg_test = tg[test]
-        # self.ft_train, self.ft_test, self.tg_train, self.tg_test = \
-        #     train_test_split(ft, tg, test_size=self.test_size, 
-        #     train_size=self.train_size, random_state=0)
-        # pass
-
-
-
-
+    def __saveData(self, dataSplit, name):
+        save_filename = self.file.split('/')[-1].split('.')[0] + '_' + \
+            name + '_random_state' + str(self.random_state)
+        dump(dataSplit, self.save_folder + save_filename + '.joblib')

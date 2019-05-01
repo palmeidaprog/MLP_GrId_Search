@@ -7,6 +7,7 @@ __pycache__/
 src/*.csv
 *.csv
 datasets_test/
+saved_models/
 .~lock.*
 
 # visual studio code
