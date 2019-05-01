@@ -23,7 +23,8 @@ class MLP(Base):
                 learning_rate_init=self.learning_r, random_state=1)
         clf.fit(self.data.X_train, self.data.y_train)
         self.prediction = clf.predict(self.data.X_test)
-        save_file = self.file.split('.')[0] + '_MLP_ID' + str(self.file_id) \
+        save_file = self.file.split('/')[-1].split('.')[0] + '_MLP_ID' \
+            + str(self.file_id) \
             + '_' + self.prepocess_name + '_random_state' + str(self.iter_n)
         dump(clf, self.save_folder + save_file + '.joblib')
         pass
