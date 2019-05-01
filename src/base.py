@@ -10,11 +10,15 @@ class Base:
         self.iter_n = i
         self.filename = filename
         
-    def scores(self, prediction, y_test, out, e, b, lr, ln, ls):
+    def scores(self, prediction, y_test, out, e, b, lr, ls):
         with open(out, 'at') as file:
+            second_layer = 0
+            if len(ls) > 1:
+                second_layer = ls[1]
+        
             line = f"\"{self.filename} - MLP\","
             line += f"\"Split # {self.iter_n}\","
-            line += f"{e},{b},{lr},{ln},{ls},"
+            line += f"{e},{b},{lr},{ls[0]},{second_layer},"
             line += f"{accuracy_score(y_test, prediction)},"
             line += f"{matthews_corrcoef(y_test, prediction)},"
             line += f"{f1_score(y_test, prediction,average='macro')},"
