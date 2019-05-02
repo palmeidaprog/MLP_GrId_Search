@@ -26,7 +26,7 @@ class MLP(Base):
         save_file = self.file.split('/')[-1].split('.')[0] + '_MLP_ID' \
             + str(self.file_id) \
             + '_' + self.prepocess_name + '_random_state' + str(self.iter_n)
-        dump(clf, self.save_folder + save_file + '.joblib')
+        #dump(clf, self.save_folder + save_file + '.joblib')
         pass
 
     def scores(self, out):

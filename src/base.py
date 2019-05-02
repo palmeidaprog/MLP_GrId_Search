@@ -17,7 +17,7 @@ class Base:
                 second_layer = ls[1]
             
             line = f"{file_id}, \"{self.filename} - MLP\","
-            line += f"\"Split # {self.iter_n}\""
+            line += f"\"Split # {self.iter_n}\","
             line += f"{self.iter_n},{name},{e},{b},{lr},{ls[0]},"
             line += f"{second_layer},"
             line += f"{accuracy_score(y_test, prediction)},"

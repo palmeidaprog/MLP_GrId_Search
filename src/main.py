@@ -57,7 +57,7 @@ for datafile in listdir(folder):
     #mkdir(output_folder)
     with open(output, 'wt') as out_file: 
         out_file.writelines('\"File ID\", \"Descrição\",\"Split #\",' +
-            '\"Pre-processing\"' +
+            '\"Pre-processing\",' +
             '\"Split RState\",\"Epochs\",\"Batch\",\"Learning Rate\",' +
             '\"1st Layer\",\"2nd Layer\",' + \
             '"\"Acurácia\",\"F1-Score\",\"Recall\",\"Precisão,MCC\"\n')

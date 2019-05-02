@@ -57,8 +57,8 @@ class DataSet:
             train_test_split(X, y, stratify=y, 
             train_size=self.train_size, test_size=(1.0 - self.train_size),
             random_state=self.random_state)
-        self.__saveData(self.X_test, 'X_test')
-        self.__saveData(self.y_test, 'y_test')
+        #self.__saveData(self.X_test, 'X_test')
+        #self.__saveData(self.y_test, 'y_test')
         
         # validation split
         if self.validation_size > 0:
@@ -68,11 +68,11 @@ class DataSet:
                 train_size=(1.0 - self.validation_size),
                 test_size=self.validation_size, 
                 random_state=self.random_state)
-            self.__saveData(self.X_validation, 'X_validation')
-            self.__saveData(self.y_validation, 'y_validation')
+            #self.__saveData(self.X_validation, 'X_validation')
+            #self.__saveData(self.y_validation, 'y_validation')
 
-        self.__saveData(self.X_train, 'X_train')
-        self.__saveData(self.y_train, 'y_train')
+        #self.__saveData(self.X_train, 'X_train')
+        #self.__saveData(self.y_train, 'y_train')
 
     def __saveData(self, dataSplit, name):
         save_filename = self.file.split('/')[-1].split('.')[0] + '_' + \
