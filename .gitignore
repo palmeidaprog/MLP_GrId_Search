@@ -6,7 +6,9 @@ __pycache__/
 # project specific
 src/*.csv
 *.csv
+*.joblib
 datasets_test/
+output/
 saved_models/
 .~lock.*
 

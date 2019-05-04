@@ -3,9 +3,9 @@ from sklearn.neural_network import MLPClassifier
 from joblib import dump
 
 class MLP(Base):
-    def __init__(self, file, filename, i, data, epochs, batch, learning_rate, 
+    def __init__(self, file, filename, i, data, epochs, learning_rate, 
             layer_size, preprocess_name, file_id, 
-            save_folder='../saved_models/'):
+            save_folder='../saved_models/', batch='auto'):
         Base.__init__(self, file, filename, i)
         self.data = data
         self.epochs = epochs
@@ -18,15 +18,12 @@ class MLP(Base):
         self.__run()
 
     def __run(self):
-        clf = MLPClassifier(batch_size=self.batch, max_iter=50,
+        clf = MLPClassifier(batch_size=self.batch, max_iter=self.epochs,
                 hidden_layer_sizes=self.layer_size, 
                 learning_rate_init=self.learning_r, random_state=1)
         clf.fit(self.data.X_train, self.data.y_train)
+        self.clf = clf
         self.prediction = clf.predict(self.data.X_test)
-        save_file = self.file.split('/')[-1].split('.')[0] + '_MLP_ID' \
-            + str(self.file_id) \
-            + '_' + self.prepocess_name + '_random_state' + str(self.iter_n)
-        #dump(clf, self.save_folder + save_file + '.joblib')
         pass
 
     def scores(self, out):
