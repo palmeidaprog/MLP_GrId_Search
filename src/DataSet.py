@@ -40,8 +40,6 @@ class DataSet:
 
     def __split_data(self):
         self.__read_meta()
-        
-        print(self.file)
         data = pd.read_csv(self.file, names=self.names, \
             header=self.i)
         last_col = len(self.names) - 1
