@@ -3,7 +3,6 @@ from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import matthews_corrcoef
-from CSVSave import CSVSave
 
 class Base:
     def __init__(self, file, filename, i):
