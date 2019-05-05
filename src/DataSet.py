@@ -72,6 +72,8 @@ class DataSet:
                 train_size=(1.0 - self.validation_size),
                 test_size=self.validation_size, 
                 random_state=self.random_state)
+            self.__saveXY(self.X_validation, 'X_validation')
+            self.__saveXY(self.y_validation, 'y_validation')
             
         self.__saveXY(self.X_train, 'X_train')
         self.__saveXY(self.X_test, 'X_test')
