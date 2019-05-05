@@ -5,6 +5,7 @@ from os import listdir, mkdir, path
 from MLP import MLP
 from DataSet import DataSet
 from sys import argv, exit
+from DatasetType import DatasetType
 
 filterwarnings(action='ignore')
 folder='../datasets_test/'
@@ -74,8 +75,14 @@ else:
         mkdir(output_folder)
 
 for datafile in file_list:
-    if not datafile.endswith('.dat'):
+    dataset_type = DatasetType.COMMON_CSV
+    if datafile.endswith('.dat'):
+        dataset_type = DatasetType.KEEL
+    elif datafile.endswith('.joblib'): 
+        dataset_type = DatasetType.TREATED_DATA_JOBLIB
+    else:    
         continue
+        
     print(f"##### Opening {datafile} #####")
     output = output_folder + datafile.split('.')[0] + '.csv'
     print(output)
@@ -88,10 +95,12 @@ for datafile in file_list:
     
     progress = 0.0
     for i in range(30):
-        dataset = DataSet(folder+datafile, Normalizer(), random_state=i)
+        dataset = DataSet(folder+datafile, Normalizer(), validation_size=0.1, 
+                random_state=i, dataset_type=dataset_type)
         grid_search(dataset, folder+datafile, datafile, 'Normalizer', 
                 progress_inc)
-        dataset = DataSet(folder + datafile, StandardScaler(), random_state=i)
+        dataset = DataSet(folder + datafile, StandardScaler(), 
+                validation_size=0.1, random_state=i)
         grid_search(dataset, folder+datafile, datafile, 'Standard Scaler',
                 progress_inc)
     print('\r%s - Progress: 100.00%%' % dataset.file)

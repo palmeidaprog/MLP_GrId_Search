@@ -4,13 +4,14 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, Normalizer, LabelEncoder
 from joblib import dump, load
+from DatasetType import DatasetType
 
 
 class DataSet:
     # validation_size = % of the train_size that is saved for validation
     def __init__(self, file, preproc=Normalizer(), random_state=0, 
-            train_size=0.75, validation_size=0, test_size=0.25, 
-            save_folder='../output/'):
+            train_size=0.75, validation_size=0.1, test_size=0.25, 
+            save_folder='../output/', dataset_type=DatasetType.KEEL):
         self.file = file
         self.train_size=train_size
         self.test_size = test_size
@@ -18,6 +19,7 @@ class DataSet:
         self.preproc = preproc
         self.random_state = random_state
         self.save_folder = save_folder
+        self.dataset_type = dataset_type
         self.__split_data()
         
     def __read_meta(self):
@@ -39,11 +41,15 @@ class DataSet:
         pass    
 
     def __split_data(self):
-        self.__read_meta()
-        print(self.names)
-        data = pd.read_csv(self.file, names=self.names, \
-            header=self.i)
-
+        if self.dataset_type == DatasetType.KEEL:
+            self.__read_meta()
+            data = pd.read_csv(self.file, names=self.names, \
+                header=self.i)
+        elif self.dataset_type == DatasetType.COMMON_CSV:
+            data = pd.read_csv(self.file)
+        elif self.dataset_type == DatasetType.TREATED_DATA_JOBLIB:
+            data = load(self.file)
+        
         # pre processing data
         data = data.apply(LabelEncoder().fit_transform)
         y = data['Class']
@@ -58,7 +64,6 @@ class DataSet:
             train_size=self.train_size, test_size=(1.0 - self.train_size),
             random_state=self.random_state)
         
-        print(type(self.X_train))
         # validation split
         if self.validation_size > 0:
             self.X_train, self.X_validation, self.y_train, self.y_validation \
