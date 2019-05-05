@@ -81,10 +81,10 @@ for datafile in file_list:
     print(output)
     with open(output, 'wt') as out_file: 
         out_file.writelines('\"File ID\",\"Descrição\",\"Split #\",' +
-            '\"Pre-processing\",' +
-            '\"Split RState\",\"Epochs\",\"Batch\",\"Learning Rate\",' +
+            '\"Split RState\",' +
+            '\"Pre-processing\",\"Epochs\",\"Learning Rate\",' +
             '\"1st Layer\",\"2nd Layer\",' + \
-            '"\"Acurácia\",\"F1-Score\",\"Recall\",\"Precisão,MCC\"\n')
+            '"\"Acurácia\",\"Recall\",\"Precisão\",\"F1-Score\",\"MCC\"\n')
     
     progress = 0.0
     for i in range(30):

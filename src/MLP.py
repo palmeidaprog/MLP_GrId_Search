@@ -28,6 +28,6 @@ class MLP(Base):
 
     def scores(self, out):
         super(MLP, self).scores(self.prediction, self.data.y_test, out, 
-                self.epochs, self.batch, self.learning_r, self.layer_size, 
+                self.epochs, self.learning_r, self.layer_size, 
                 self.prepocess_name, self.file_id)
         pass

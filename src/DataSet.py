@@ -1,16 +1,16 @@
-
 import requests
-import os
+from os import path, makedirs
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, Normalizer, LabelEncoder
 from joblib import dump, load
 
+
 class DataSet:
     # validation_size = % of the train_size that is saved for validation
     def __init__(self, file, preproc=Normalizer(), random_state=0, 
             train_size=0.75, validation_size=0, test_size=0.25, 
-            save_folder='../saved_models/'):
+            save_folder='../output/'):
         self.file = file
         self.train_size=train_size
         self.test_size = test_size
@@ -40,24 +40,25 @@ class DataSet:
 
     def __split_data(self):
         self.__read_meta()
+        print(self.names)
         data = pd.read_csv(self.file, names=self.names, \
             header=self.i)
-        last_col = len(self.names) - 1
-        X = data.iloc[:, 0:last_col]
-        y = data.iloc[:, last_col].values
+
+        # pre processing data
+        data = data.apply(LabelEncoder().fit_transform)
+        y = data['Class']
+        X = data.drop('Class', axis=1)
+        c = X.columns
+        X = pd.DataFrame(self.preproc.fit_transform(X))
+        X.columns = c
     
-        X = X.apply(LabelEncoder().fit_transform)
-        #X = LabelEncoder().fit_transform
-        X = self.preproc.fit_transform(X)
-        
         # Data split
         self.X_train, self.X_test, self.y_train, self.y_test = \
             train_test_split(X, y, stratify=y, 
             train_size=self.train_size, test_size=(1.0 - self.train_size),
             random_state=self.random_state)
-        #self.__saveData(self.X_test, 'X_test')
-        #self.__saveData(self.y_test, 'y_test')
         
+        print(type(self.X_train))
         # validation split
         if self.validation_size > 0:
             self.X_train, self.X_validation, self.y_train, self.y_validation \
@@ -66,13 +67,25 @@ class DataSet:
                 train_size=(1.0 - self.validation_size),
                 test_size=self.validation_size, 
                 random_state=self.random_state)
-            #self.__saveData(self.X_validation, 'X_validation')
-            #self.__saveData(self.y_validation, 'y_validation')
-
-        #self.__saveData(self.X_train, 'X_train')
-        #self.__saveData(self.y_train, 'y_train')
-
+            
+        self.__saveXY(self.X_train, 'X_train')
+        self.__saveXY(self.X_test, 'X_test')
+        self.__saveXY(self.y_train, 'y_train')
+        self.__saveXY(self.y_test, 'y_test')
+        
     def __saveData(self, dataSplit, name):
         save_filename = self.file.split('/')[-1].split('.')[0] + '_' + \
             name + '_random_state' + str(self.random_state)
         dump(dataSplit, self.save_folder + save_filename + '.joblib')
+
+    def __saveXY(self, d, name):
+        csvfile = name + '_rs_' + str(self.random_state) + '.csv'
+        if self.save_folder[-1] != '/':
+            self.save_folder.append('/')
+        self.save_folder += self.name + '/'
+
+        if not path.isdir(self.save_folder):
+            makedirs(self.save_folder)
+        
+        pd.DataFrame(d).to_csv(self.save_folder + csvfile)
+
