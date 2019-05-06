@@ -27,15 +27,16 @@ def read_meta(file):
                 break
     names.append("Class")
 
-
+ds = ''
 if not len(argv) > 1:
-    print('Please choose a dataset')
-    exit()
+    ds = '../datasets/adult.dat'
+else:
+    ds = argv[1]
 
-read_meta(argv[1])
+read_meta(ds)
 print(names)
 pd.set_option('display.max_columns', 30)
-df = pd.read_csv(argv[1], names=names, header=i)
+df = pd.read_csv(ds, names=names, header=i)
 #df.columns = names
 print(df.head())
 print('Colunas: ', end='') 
@@ -65,6 +66,14 @@ print(df.shape[0])
 
 df.drop('Capital-loss', axis=1, inplace=True)
 df.drop('Capital-gain', axis=1, inplace=True)
+
+#corrigir valores
+df.Age.astype(float)
+df['Education-num'].astype(float)
+df['Hours-per-week'].astype(float)
+df['Fnlwgt'].astype(float)
+
+dump(df, '../clean_data/adult.joblib')
 
     # plt.figure()
     # plt.title('Distribuição de ' + c)

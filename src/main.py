@@ -32,6 +32,7 @@ def grid_search(data, dataf, datan, preprocess, progress_inc):
     for ep in epochs:
         for lr in learning_rate:
             for ls in layer_size:
+                print('lr inside gs: ' + str(lr))
                 mlp = MLP(dataf, datan, i, data, ep, lr, ls, preprocess, 
                     file_id, save_folder)
                 file_id += 1
@@ -41,6 +42,7 @@ def grid_search(data, dataf, datan, preprocess, progress_inc):
                     progress = 100
                 print('\r%s - Progress: %.2lf %%' % (data.file, 
                     progress), end='', flush=True)
+
 def early_exit(msg):
     print(msg)
     print("Usage: python main.py [file_name or dir_name] [optional = " + \
@@ -91,7 +93,7 @@ for datafile in file_list:
             '\"Split RState\",' +
             '\"Pre-processing\",\"Epochs\",\"Learning Rate\",' +
             '\"1st Layer\",\"2nd Layer\",' + \
-            '"\"Acurácia\",\"Recall\",\"Precisão\",\"F1-Score\",\"MCC\"\n')
+            '\"Acurácia\",\"Recall\",\"Precisão\",\"F1-Score\",\"MCC\"\n')
     
     progress = 0.0
     for i in range(5):
