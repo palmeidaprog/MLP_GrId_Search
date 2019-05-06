@@ -18,7 +18,6 @@ class MLP(Base):
         self.__run()
 
     def __run(self):
-        print('Inside run MLP: ' + str(self.learning_r))
         clf = MLPClassifier(batch_size=self.batch, max_iter=self.epochs,
                 hidden_layer_sizes=self.layer_size, 
                 learning_rate_init=self.learning_r, random_state=1)
@@ -28,7 +27,6 @@ class MLP(Base):
         pass
 
     def scores(self, out):
-        print('lr inside scores MLP: ' + str(self.learning_r))
         super(MLP, self).scores(self.prediction, self.data.y_test, out, 
                 self.epochs, self.learning_r, self.layer_size, 
                 self.prepocess_name, self.file_id)

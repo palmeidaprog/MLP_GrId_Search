@@ -32,7 +32,6 @@ def grid_search(data, dataf, datan, preprocess, progress_inc):
     for ep in epochs:
         for lr in learning_rate:
             for ls in layer_size:
-                print('lr inside gs: ' + str(lr))
                 mlp = MLP(dataf, datan, i, data, ep, lr, ls, preprocess, 
                     file_id, save_folder)
                 file_id += 1
