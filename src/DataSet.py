@@ -63,6 +63,8 @@ class DataSet:
             data = pd.read_csv(self.file)
         elif self.dataset_type == DatasetType.TREATED_DATA_JOBLIB:
             data = load(self.file)
+            self.names = data.columns
+            self.name = self.file.split('/')[-1].split('.')[0]
         
         # pre processing data
         data = data.apply(LabelEncoder().fit_transform)
