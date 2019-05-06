@@ -19,13 +19,12 @@ mlp = ''
 data = ''
 file_id = 1000
 progress = 0.0
-    
-    6 * 2 * 3 = 36 * 2 = 72 * 5
+
 # data = DataSet
 # dataf = Data
 
 def calculate_percentage():
-    return 100 / (60 * len(epochs) * len(learning_rate) * len(layer_size))
+    return 100 / (10 * len(epochs) * len(learning_rate) * len(layer_size))
 
 def grid_search(data, dataf, datan, preprocess, progress_inc):
     global progress

@@ -1,3 +1,7 @@
+# Paulo R. Almeida Filho
+# <pauloalmeidaf@gmail.com>
+# http://www.github.com/palmeidaprog
+
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
