@@ -5,6 +5,7 @@ from os import system
 from matplotlib import pyplot as plt
 import sys
 
+
 names = []
 name = ''
 i = 0
@@ -40,6 +41,10 @@ print(df.head())
 print('Colunas: ', end='') 
 print(df.columns)
 
+with open('../output/adult/adult.html', 'wt') as f:
+    f.writelines(df.describe().to_html())
+
+
 # check for nan and null values
 if df.isnull().values.any():
     print('Tnere are NaN and null values. Please treat them')
@@ -48,13 +53,13 @@ if df.isnull().values.any():
 for c in df.columns:
     print(df[c].unique())
     #df[c].value_counts()
-    plt.figure()
-    plt.title('Distribuição de ' + c)
-    #plt.pie(df[c].value_counts() ,labels=df[c].unique())
-    plt.bar(df[c].unique(), df[c].value_counts())
-    plt.savefig('../output/adult/bar' + c + '.png')
-    print(f'saved {c}')
-    #plt.df[c].plot(kind='bar')
+    # plt.figure()
+    # plt.title('Distribuição de ' + c)
+    # #plt.pie(df[c].value_counts() ,labels=df[c].unique())
+    # plt.bar(df[c].unique(), df[c].value_counts())
+    # plt.savefig('../output/adult/bar' + c + '.png')
+    # print(f'saved {c}')
+    # plt.df[c].plot(kind='bar')
     
 
 

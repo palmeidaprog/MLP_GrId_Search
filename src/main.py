@@ -20,6 +20,7 @@ data = ''
 file_id = 1000
 progress = 0.0
     
+    6 * 2 * 3 = 36 * 2 = 72 * 5
 # data = DataSet
 # dataf = Data
 
@@ -94,7 +95,7 @@ for datafile in file_list:
             '"\"Acurácia\",\"Recall\",\"Precisão\",\"F1-Score\",\"MCC\"\n')
     
     progress = 0.0
-    for i in range(30):
+    for i in range(5):
         dataset = DataSet(folder+datafile, Normalizer(), validation_size=0.1, 
                 random_state=i, dataset_type=dataset_type)
         grid_search(dataset, folder+datafile, datafile, 'Normalizer', 
