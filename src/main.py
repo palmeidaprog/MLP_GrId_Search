@@ -101,7 +101,8 @@ for datafile in file_list:
         grid_search(dataset, folder+datafile, datafile, 'Normalizer', 
                 progress_inc)
         dataset = DataSet(folder + datafile, StandardScaler(), 
-                validation_size=0.1, random_state=i)
+                validation_size=0.1, random_state=i, 
+                dataset_type=dataset_type)
         grid_search(dataset, folder+datafile, datafile, 'Standard Scaler',
                 progress_inc)
     print('\r%s - Progress: 100.00%%' % dataset.file)
