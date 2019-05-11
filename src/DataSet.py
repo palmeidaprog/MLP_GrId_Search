@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, Normalizer, LabelEncoder
 from joblib import dump, load
 from DatasetType import DatasetType
+from EncodeMethod import EncodeMethod
 
 # read datasets, preprocesses and split it using pandas.DataFrame
 class DataSet:
@@ -21,9 +22,12 @@ class DataSet:
     #                   validation
     # save_folder = location to save the output data
     # dataset_type = KEEL, TREATED_DATA_JOBLIB, COMMON_CSV, 
+    # encode type = DEFAULT for LabelEncode apply to the entire dataset
+    #               
     def __init__(self, file, preproc=Normalizer(), random_state=0, 
             train_size=0.75, validation_size=0.1, test_size=0.25, 
-            save_folder='../output/', dataset_type=DatasetType.KEEL):
+            save_folder='../output/', dataset_type=DatasetType.KEEL,
+            categorical_columns=[]):
         self.file = file
         self.train_size=train_size
         self.test_size = test_size
@@ -32,6 +36,7 @@ class DataSet:
         self.random_state = random_state
         self.save_folder = save_folder
         self.dataset_type = dataset_type
+        self.categorical_columns = categorical_columns
         self.__split_data()
     
     # .dat KEEL/UCI with @ meta info on header specific
@@ -53,8 +58,36 @@ class DataSet:
         self.names.append("Class")
         pass    
 
+    
+    # apply pre-processing to numerical columns
+    def __preprocess_data(self, X):
+        if len(self.categorical_columns) == 0:
+            X = self.__apply_preproc(X)
+        else:
+            numerical = [] 
+            for i in X.columns:
+                if not i in self.categorical_columns:
+                    if len(numerical) == 0:
+                        numerical = pd.DataFrame(X[i])
+                    else:
+                        numerical[i] = X[i]
+            numerical = self.__apply_preproc(numerical)
+
+            for i in numerical.columns:
+                X[i] = numerical[i]
+                
+        return X
+
+    # apply transformation to the dataset and keep it as pandas DataFrame
+    def __apply_preproc(self, X):
+        c = X.columns
+        X = pd.DataFrame(self.preproc.fit_transform(X))
+        X.columns = c
+        return X
+
     # core method of the class, where the magic happens 
     def __split_data(self):
+        data = ""
         if self.dataset_type == DatasetType.KEEL:
             self.__read_meta()
             data = pd.read_csv(self.file, names=self.names, \
@@ -67,12 +100,25 @@ class DataSet:
             self.name = self.file.split('/')[-1].split('.')[0]
         
         # pre processing data
-        data = data.apply(LabelEncoder().fit_transform)
+        self.encoder = LabelEncoder()
+        if len(self.categorical_columns) == 0:    
+            data = data.apply(self.encoder.fit_transform)
+        # in case the categorical columns are manually specified, the enconder
+        # will have a list of the enconder for future inverse transformation
+        else:  
+            self.encoder = []
+            le = 0
+            for column in self.categorical_columns:
+                self.encoder.append(LabelEncoder())
+                data[column] = self.encoder[le].fit_transform(data[column])
+                le += 1
+
         y = data['Class']
         X = data.drop('Class', axis=1)
-        c = X.columns
-        X = pd.DataFrame(self.preproc.fit_transform(X))
-        X.columns = c
+        
+        X = self.__preprocess_data(X)
+        #X = pd.DataFrame(self.preproc.fit_transform(X))
+        #X.columns = c
     
         # Data split
         self.X_train, self.X_test, self.y_train, self.y_test = \
