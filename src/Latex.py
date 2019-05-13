@@ -96,18 +96,20 @@ class Latex:
         with codecs.open(self.latex_file, 'w', encoding='utf8') as newfile:
             newfile.writelines(abnt_default)
 
+    # add latex code to centralize the output
+    def __centralize(self, latex_code):
+        return '\\begin{center}\n' + latex_code + '\\end{center}\n'
+
+    # adds a new line in latex code '\\' 
+    def __add_linefeed(self, latex_code):
+        return latex_code + '\\\\\n'
+
     # Insert code in the latex_file. line_to_insert=0 will insert at the end
     # linefeed as True adds a latex's end of the line (\\)
     # centerd = True if you need the text to be centered in the PDF file
-    def insert_in_file(self, latex_code, line_to_insert=0, linefeed=True,
-            centered=True):
+    def insert_in_file(self, latex_code, line_to_insert=0, linefeed=False,
+            centered=False):
         current_line = 1
-
-        if linefeed: # add end of line in case of linefeed is True
-            latex_code += '\\\\\n'
-
-        if centered:
-            latex_code = '\\begin{center}\n' + latex_code + '\\end{center}\n'
 
         with codecs.open(self.latex_file, 'r', encoding='utf8', 
                 errors='ignore') as ltx:
@@ -117,35 +119,46 @@ class Latex:
                     # escreve no final
                     if line_to_insert == 0 \
                         and ltx_line.startswith('\\end{document}'): 
-                        self.__write_latex_code(latex_code, tmp)
+                        self.__write_latex_code(latex_code, tmp, linefeed, 
+                            centered)
                     elif line_to_insert == current_line:
-                        self.__write_latex_code(latex_code, tmp)
+                        self.__write_latex_code(latex_code, tmp, linefeed,
+                            centered)
                     tmp.writelines(ltx_line)
                     current_line += 1
-        copy2(self.latex_file, 'xx.tex')
+        #copy2(self.latex_file, 'xx.tex')
         os.remove(self.latex_file)
         os.rename('tmp.tex', self.latex_file)
+
+    def __format_code(self, latex_code, linefeed=False, centered=False):
+        if linefeed:
+            latex_code = self.__add_linefeed(latex_code) 
+        if centered:
+            latex_code = self.__centralize(latex_code)
+        return latex_code
         
     # support fir insert_in_file, it places latex_code in the specific line
     # position 
-    def __write_latex_code(self, latex_code, tmp):
-        if type(latex_code) == 'str':
-            tmp.write(latex_code + '\n')
+    def __write_latex_code(self, latex_code, tmp, linefeed, centered):
+        if type(latex_code) == str:
+            latex_code = self.__format_code(latex_code, linefeed, centered)
+            tmp.write(latex_code)
         else:    
             for newline in latex_code:
+                newline = self.__format_code(newline, linefeed, centered)
                 tmp.writelines(newline)
 
     # insert code for image in latex_file
-    def insert_image(self, image_file, line_to_insert=0, scale=0.5):
+    def insert_image(self, image_file, line_to_insert=0, scale=0.5, 
+            linefeed=True):
         self.insert_in_file('\\insertgraphics[scale=' + str(scale) + ']{' + 
-                image_file + '}')
-    
+                image_file + '}\n', linefeed=linefeed, centered=True)
+
     # move or copy the image to the project's picture folder
     # action = Move picture to the latex picture
     def move_image(self, image_file, action=Action.MOVE, 
             auto_rename_file=True):
         # rename picture in case it exists in the destination
-
 
         print(self.__parse_filename(image_file))
         if action == Action.MOVE:

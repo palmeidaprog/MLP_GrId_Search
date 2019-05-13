@@ -1,0 +1,52 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{times}
+\graphicspath{ {pictures/} }
+%\usepackage{xcolor}
+\usepackage[formats]{listings}
+\setlength{\parindent}{0pt}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\providecommand{\sin}{} \renewcommand{\sin}{\hspace{2pt}\mathrm{sen}\hspace{2pt}}
+\providecommand{\arcsin}{} \renewcommand{\arcsin}{\hspace{2pt}\mathrm{arcsen}\hspace{2pt}}
+\providecommand{\tan}{} \renewcommand{\tan}{\hspace{2pt}\mathrm{tg}\hspace{2pt}}
+\providecommand{\cot}{} \renewcommand{\cot}{\hspace{2pt}\mathrm{cotg}\hspace{2pt}}
+\providecommand{\csc}{} \renewcommand{\csc}{\hspace{2pt}\mathrm{cosec}\hspace{2pt}}
+\newcommand{\B}{\item[$\bullet$]}
+\newcommand{\tab}{\phantom{xxxx}}
+\usepackage{booktabs}
+\usepackage{lscape}
+\begin{document}
+\begin{center}
+\textbf{Title}\\
+Subtitle \\\vspace{36pt}
+\end{center}
+\section{Adult dataset}
+
+\subsection{Apresentao dos Dados}
+
+\textbf{Nome:} Adult\\ \\
+\textbf{Descrição:} The Adult data set was extracted in 1994 from census data of the United States. It contains continuous and nominal attributes, describing some social information (age, race, sex, marital status, ...) about the citizens registered.The task is to predict whether the citizens income exceeds fifty thousand dollars a year.\\ 
+\textbf{Objetivo:} \\ 
+\textbf{Instâncias:} 45222 (48842)\\ 
+\textbf{Número de atributos:} 14\\ 
+\textbf{Número de classes:} 2\\ 
+\textbf{Atributo - Age:} dado numérico, possíveis valores float de 17.0 a 90.0\\ 
+\textbf{Atributo - Workclass:} dado categórico, possíveis valores: (Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked)\\ 
+\textbf{Atributo - Fnlwgt:} dado numérico, possíveis valores float de 12285.0 a 1490400.0\\ 
+\textbf{Atributo - Education:} dado categórico, possíveis valores: (Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool)\\ 
+\textbf{Atributo - Education-num:} dado numérico, possíveis valores float de 1.0 a 16.0\\ 
+\textbf{Atributo - Marital-status:} dado categórico, possíveis valores: (Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse)\\ 
+\textbf{Atributo - Occupation:} dado categórico, possíveis valores: (Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces)\\ 
+\textbf{Atributo - Relationship:} dado categórico, possíveis valores: (Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried)\\ 
+\textbf{Atributo - Race:} dado categórico, possíveis valores: (White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black)\\ 
+\textbf{Atributo - Sex:} dado categórico, possíveis valores: (Female, Male)\\ 
+\textbf{Atributo - Capital-gain:} dado numérico, possíveis valores float de 0.0 a 99999.0\\ 
+\textbf{Atributo - Capital-loss:} dado numérico, possíveis valores float de 0.0 a 4356.0\\ 
+\textbf{Atributo - Hours-per-week:} dado numérico, possíveis valores float de 1.0 a 99.0\\ 
+%\textbf{Atributo - Native-country:} dado categórico, possíveis valores: (United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad\&Tobago, Peru, Hong, Holand-Netherlands)\\ 
+\textbf{Atributo - Class:} dado categórico, possíveis valores: (>50K, <=50K)\\ 
+\end{document}

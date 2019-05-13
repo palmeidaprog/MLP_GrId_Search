@@ -85,19 +85,20 @@ for datafile in file_list:
         continue
         
     print(f"##### Opening {datafile} #####")
-    output = output_folder + datafile.split('.')[0] + '.csv'
-    print(output)
-    with open(output, 'wt') as out_file: 
-        out_file.writelines('\"File ID\",\"Descrição\",\"Split #\",' +
-            '\"Split RState\",' +
-            '\"Pre-processing\",\"Epochs\",\"Learning Rate\",' +
-            '\"1st Layer\",\"2nd Layer\",' + \
-            '\"Acurácia\",\"Recall\",\"Precisão\",\"F1-Score\",\"MCC\"\n')
+    # output = output_folder + datafile.split('.')[0] + '.csv'
+    # print(output)
+    # with open(output, 'wt') as out_file: 
+    #     out_file.writelines('\"File ID\",\"Descrição\",\"Split #\",' +
+    #         '\"Split RState\",' +
+    #         '\"Pre-processing\",\"Epochs\",\"Learning Rate\",' +
+    #         '\"1st Layer\",\"2nd Layer\",' + \
+    #         '\"Acurácia\",\"Recall\",\"Precisão\",\"F1-Score\",\"MCC\"\n')
     
     progress = 0.0
     for i in range(5):
         dataset = DataSet(folder+datafile, Normalizer(), validation_size=0.1, 
                 random_state=i, dataset_type=dataset_type)
+        
         grid_search(dataset, folder+datafile, datafile, 'Normalizer', 
                 progress_inc)
         dataset = DataSet(folder + datafile, StandardScaler(), 
