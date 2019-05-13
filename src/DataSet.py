@@ -74,8 +74,7 @@ class DataSet:
             numerical = self.__apply_preproc(numerical)
 
             for i in numerical.columns:
-                X[i] = numerical[i]
-                
+                X[i] = numerical[i]            
         return X
 
     # apply transformation to the dataset and keep it as pandas DataFrame

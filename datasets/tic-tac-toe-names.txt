@@ -1,0 +1,40 @@
+Tic-Tac-Toe Endgame data set
+
+1: Description.
+
+This database encodes the complete set of possible board configurations at the end of tic-tac-toe games, where x is assumed to have played first. The target concept is win for x (i.e., true when x has one of 8 possible ways to create a three-in-a-row). 
+
+Attributes description: 
+
+1. TopLeft -> top-left-square: {x,o,b} 
+2. TopMiddle -> top-middle-square: {x,o,b} 
+3. TopRight -> top-right-square: {x,o,b} 
+4. MiddleLeft -> middle-left-square: {x,o,b} 
+5. MiddleMiddle -> middle-middle-square: {x,o,b} 
+6. MiddleRight -> middle-right-square: {x,o,b} 
+7. BottomLeft -> bottom-left-square: {x,o,b} 
+8. BottomMiddle -> bottom-middle-square: {x,o,b} 
+9. BottomRight -> bottom-right-square: {x,o,b}
+
+2: Type.			Classification	
+3: Origin.			Real world
+4: Instances.		958
+5: Features.		9
+6: Classes.			2	
+7: Missing values.	No
+
+8: Header.
+
+@relation tic-tac-toe
+@attribute TopLeft {x, o, b}
+@attribute TopMiddle {x, o, b}
+@attribute TopRight {x, o, b}
+@attribute MiddleLeft {x, o, b}
+@attribute MiddleMiddle {o, b, x}
+@attribute MiddleRight {o, b, x}
+@attribute BottomLeft {x, o, b}
+@attribute BottomMiddle {o, x, b}
+@attribute BottomRight {o, x, b}
+@attribute Class {positive, negative}
+@inputs TopLeft, TopMiddle, TopRight, MiddleLeft, MiddleMiddle, MiddleRight, BottomLeft, BottomMiddle, BottomRight
+@outputs Class

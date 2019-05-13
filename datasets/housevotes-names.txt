@@ -1,0 +1,35 @@
+Congressional Voting Records data set
+
+1: Description.
+
+This data set includes votes for each of the U.S. House of Representatives Congressmen on the 16 key votes identified by the CQA. The CQA lists nine different types of votes: voted for, paired for, and announced for (these three simplified to yea), voted against, paired against, and announced against (these three simplified to nay), voted present, voted present to avoid conflict of interest, and did not vote or otherwise make a position known (these three simplified to an unknown disposition).
+
+2: Type.			Classification	
+3: Origin.			Real world
+4: Instances.		232 (435)
+5: Features.		16
+6: Classes.			2	
+7: Missing values.	Si
+
+8: Header.
+
+@relation housevotes
+@attribute Handicapped_infants{y,n}
+@attribute Water_project_cost{y,n}
+@attribute Adoption_budget_resolution{y,n}
+@attribute Physician_fee_freeze{y,n}
+@attribute El_salvador_aid{y,n}
+@attribute Religious_groups_in_schools{y,n}
+@attribute Anti_satellite_test_ban{y,n}
+@attribute Aid_to_nicaraguan_contras{y,n}
+@attribute Mx_missile{y,n}
+@attribute Immigration{y,n}
+@attribute Synfuels_corporation_cutback{y,n}
+@attribute Education_spending{y,n}
+@attribute Superfund_right_to_sue{y,n}
+@attribute Crime{y,n}
+@attribute Duty_free_exports{y,n}
+@attribute Export_south_africa{y,n}
+@attribute Class{republican,democrat}
+@inputs Handicapped_infants, Water_project_cost, Adoption_budget_resolution, Physician_fee_freeze, El_salvador_aid, Religious_groups_in_schools, Anti_satellite_test_ban, Aid_to_nicaraguan_contras, Mx_missile, Immigration, Synfuels_corporation_cutback, Education_spending, Superfund_right_to_sue, Crime, Duty_free_exports, Export_south_africa
+@outputs Class

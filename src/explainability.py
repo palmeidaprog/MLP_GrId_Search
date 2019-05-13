@@ -24,7 +24,7 @@ else:
     prep = Normalizer()
     if int(argv[3]) == 1:
         prep = StandardScaler()
-
+        
     layers = ''
     if int(argv[7]) == 0:
         layers = (int(argv[6]),)

@@ -1,0 +1,40 @@
+Mushroom data set
+
+1: Description.
+
+This data set includes descriptions of hypothetical samples corresponding to 23 species of gilled mushrooms in the Agaricus and Lepiota Family. Each species is identified as edible or poisonous.
+
+2: Type.			Classification	
+3: Origin.			Real world
+4: Instances.		5644 (8124)
+5: Features.		22
+6: Classes.			2	
+7: Missing values.	Yes
+
+8: Header.
+@relation mushroom
+@attribute Cap-shape {x, b, s, f, k, c}
+@attribute Cap-surface {s, y, f, g}
+@attribute Cap-color {n, y, w, g, e, p, b, u, c, r}
+@attribute Bruises {t, f}
+@attribute Odor {p, a, l, n, f, c, y, s, m}
+@attribute Gill-attachment {f, a, d, n}
+@attribute Gill-spacing {c, w, d}
+@attribute Gill-size {n, b}
+@attribute Gill-color {k, n, g, p, w, h, u, e, b, r, y, o}
+@attribute Stalk-shape {e, t}
+@attribute Stalk-root {e, c, b, r, u, z}
+@attribute Stalk-surface-above-ring {s, f, k, y}
+@attribute Stalk-surface-below-ring {s, f, y, k}
+@attribute Stalk-color-above-ring {w, g, p, n, b, e, o, c, y}
+@attribute Stalk-color-below-ring {w, p, g, b, n, e, y, o, c}
+@attribute Veil-type {p, u}
+@attribute Veil-color {w, n, o, y}
+@attribute Ring-number {o, t, n}
+@attribute Ring-type {p, e, l, f, n, c, s, z}
+@attribute Spore-print-color {k, n, u, h, w, r, o, y, b}
+@attribute Population {s, n, a, v, y, c}
+@attribute Habitat {u, g, m, d, p, w, l}
+@attribute Class {p, e}
+@inputs Cap-shape, Cap-surface, Cap-color, Bruises, Odor, Gill-attachment, Gill-spacing, Gill-size, Gill-color, Stalk-shape, Stalk-root, Stalk-surface-above-ring, Stalk-surface-below-ring, Stalk-color-above-ring, Stalk-color-below-ring, Veil-type, Veil-color, Ring-number, Ring-type, Spore-print-color, Population, Habitat
+@outputs Class

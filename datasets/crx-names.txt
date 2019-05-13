@@ -1,0 +1,36 @@
+Credit Approval data set
+
+1: Description.
+
+This file concerns credit card applications. All attribute names and values have been changed to meaningless symbols to protect confidentiality of the data.
+
+This data set is interesting because there is a good mix of attributes: continuous, nominal with small numbers of values, and nominal with larger numbers of values. This data set is a extended version of the Australian data set (it has one more attribute, A8).
+
+2: Type.			Classification	
+3: Origin.			Real world
+4: Instances.		653 (690)
+5: Features.		15
+6: Classes.			2	
+7: Missing values.	No
+
+8: Header.
+
+@relation credit
+@attribute A1 {b, a}
+@attribute A2 real [16.0, 8025.0]
+@attribute A3 real [0.0, 26335.0]
+@attribute A4 {u, y, l}
+@attribute A5 {g, p, gg}
+@attribute A6 {w, q, m, r, cc, k, c, d, x, i, e, aa, ff, j}
+@attribute A7 {v, h, bb, ff, j, z, o, dd, n}
+@attribute A8 real [0.0, 14415.0]
+@attribute A9 {t, f}
+@attribute A10 {t, f}
+@attribute A11 integer [0, 67]
+@attribute A12 {f, t}
+@attribute A13 {g, s, p}
+@attribute A14 integer [0, 2000]
+@attribute A15 integer [0, 100000]
+@attribute Class {positive, negative}
+@inputs A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15
+@outputs Class
